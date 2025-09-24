@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quoteapp/style.css' %}">
+</head>
+<body>
+<main class="container">
+    <nav class="navigation mb-20px">
+        {% if user.is_authenticated %}
+        <ul>
+            <li><a href="{% url 'quoteapp:author' %}" role="button">Add author</a></li>
+            <li><a href="{% url 'quoteapp:quote' %}" role="button">Add quote</a></li>
+            <li><a href="{% url 'quoteapp:tag' %}" role="button">Add tag</a></li>
+            <li><a href="{% url 'quoteapp:authors' %}" role="button">All authors</a></li>
+        </ul>
+        <ul>
+            <li>Welcome <b>{{ user.username }}!</b></li>
+            <li><a href="{% url 'users:profile' %}" role="button">Profile</a></li>
+            <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
+        </ul>
+        {% else %}
+        <ul>
+            <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
+            <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+            <li><a href="{% url 'password_reset' %}" role="button">Reset password</a></li>
+            <li><a href="{% url 'quoteapp:authors' %}" role="button">All authors</a></li>
+        </ul>
+        {% endif %}
+    </nav>
+
+    <h1>All Quotes</h1>
+
+    <ul>
+        {% for quote in quotes %}
+        <li class="mb-20px">
+            <strong>{{ quote.quote_text }}</strong><br>
+            <small>Author: {{ quote.author.name }}</small><br>
+            <small>Created: {{ quote.created }}</small><br>
+            <small>Tags: {% for tag in quote.tags.all %} {{ tag.name }} {% if not forloop.last %}, {% endif %}{% endfor %}</small><br>
+
+            <a href="{% url 'quoteapp:detail' quote.id %}" role="button" class="outline">View details</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'quoteapp:delete' quote.id %}" role="button" class="contrast">Delete quote</a>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No quotes available yet.</li>
+        {% endfor %}
+    </ul>
+</main>
+</body>
+</html>

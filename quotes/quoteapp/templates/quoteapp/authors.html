@@ -1,0 +1,23 @@
+{% extends "quoteapp/base.html" %}
+
+{% block content %}
+
+    <ul>
+        {% for author in authors %}
+        <li class="mb-20px">
+            <strong>{{ author.name }}</strong><br>
+            <small>Born: {{ author.born }}</small><br>
+            <small>Born location: {{ author.location }}</small><br>
+            <p>Description: {{ author.description }} </p>
+
+            <a href="{% url 'quoteapp:detail_author' author.id %}" role="button" class="outline">View details</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'quoteapp:delete_author' author.id %}" role="button" class="contrast">Delete author</a>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No authors available yet.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

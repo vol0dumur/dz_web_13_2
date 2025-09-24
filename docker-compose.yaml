@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:567234@db:5432/quotesdb
+    depends_on:
+      - db
+    volumes:
+      - ./quotes:/app
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=quotesdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=567234
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

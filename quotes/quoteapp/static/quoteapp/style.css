@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.alert-error, .errorlist {
+    color: crimson;
+}
+
+.alert-success {
+    color: green;
+}
+
+.navigation { 
+    /* display: flex;  */
+    width: 100vw;
+    background-color: #f5f5f5;
+}
+
+.mb-20px {
+    margin-bottom: 20px;
+}
+
+.ps-30px {
+    padding-left: 30px;
+}
+
+.p-10px {
+    padding: 10px;
+}

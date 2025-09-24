@@ -1,0 +1,9 @@
+{% extends "quoteapp/base.html" %}
+
+{% block content %}
+  <h2>{{ author.name }}</h2>
+  <p><strong>Born:</strong> {{ author.born }}</p>
+  <p><strong>Born location:</strong> {{ author.location }}</p>
+  <p><strong>Description:</strong> {{ author.description }}</p>
+  <a href="{% url 'quoteapp:authors' %}">← Back to all authors</a>
+{% endblock %}
